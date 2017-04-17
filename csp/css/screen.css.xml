@@ -60,6 +60,6 @@ input { color: black; border: none; width: 75%; padding: 10px; float: left; font
 div#popupMessage { position: fixed; top: 15px; left: 15px; width: auto; height: auto; display: none; }
 
 /* line 129, ../sass/screen.scss */
-select.form-control { display: none; }
+select#cat { display: none; }
 ]]></CSP>
 </Export>

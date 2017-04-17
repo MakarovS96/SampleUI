@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25">
+<Class name="SampleUI.REST">
+<Super>%CSP.REST</Super>
+<TimeCreated>64391,4206.807454</TimeCreated>
+
+<XData name="UrlMap">
+<Data><![CDATA[
+<Routes>
+	<Route Url="/get_languages" Method="GET" Call="getLanguages"/>
+	<Route Url="/get_words/:lang" Method="GET" Call="getWords"/>
+</Routes>
+]]></Data>
+</XData>
+
+<Method name="getLanguages">
+<ClassMethod>1</ClassMethod>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+	set obj = "{""languages"":["
+	set lang=""
+	for {
+		set lang = $order(^CacheMsg("SAMPLEUI",lang))
+		quit:lang=""
+		set obj = obj_""""_lang_""","
+	}
+	set obj = obj_"]"
+	w $piece(obj,",]",1)_"]}"
+	quit $$$OK
+]]></Implementation>
+</Method>
+
+<Method name="getWords">
+<ClassMethod>1</ClassMethod>
+<FormalSpec>lang:%String</FormalSpec>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+	set obj = "["
+	set id = ""
+	for {
+		set id = $order(^CacheMsg("SAMPLEUI",lang,id))
+		quit:id=""
+		set word = ^CacheMsg("SAMPLEUI",lang,id)
+		set obj = obj_"{""id"":"""_id_""", ""word"":"""_word_"""},"
+	}
+	
+	set obj = obj_"]"
+	w $piece(obj, ",]", 1)_"]"
+	quit $$$OK
+]]></Implementation>
+</Method>
+</Class>
+</Export>

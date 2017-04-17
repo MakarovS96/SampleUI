@@ -8,5 +8,6 @@
 <cspapp>/js
 <cspapp>/lib
 SampleUI.Category.cls
+SampleUI.REST.cls
 SampleUI.Task.cls
 SampleUI.Utils.cls

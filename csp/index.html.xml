@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25">
+<CSP name="index.html" application="/csp/sampleuidev/" default="1"><![CDATA[
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>MyTODO</title>
+</head>
+<body>
+<div class="container">
+	<div id="myDIV" class="header">
+		<div class="row">
+			<div id="category" class="col-md-3 col-sm-4 col-xs-5 col-md-push-9 col-sm-push-8 col-xs-push-7">
+				<label id="labcat" for="cat">Category</label>
+				<select id="cat" class="form-control"></select>
+			</div>
+		</div>
+
+		<h2 id="title">My To Do List</h2>
+		<input type="text" id="myInput" disabled>
+		<span id="addBtn" class="addBtn">Add</span>
+	</div>
+
+	<ul id="myUL" class="list-unstyled">
+	</ul>
+	</div>
+</body>
+
+<script type="text/javascript" src="lib/js/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="lib/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/check.js"></script>
+<script type="text/javascript" src="Task_1.js"></script>
+<script type="text/javascript" src="Task_2.js"></script>
+<script type="text/javascript" src="Task_3.js"></script>
+<script type="text/javascript" src="Task_4.js"></script>
+<script type="text/javascript" src="Task_5.js"></script>
+<script type="text/javascript" src="js/script.js"></script>
+<link rel="stylesheet" type="text/css" href="lib/css/bootstrap.min.css" />
+<link rel="stylesheet" type="text/css" href="lib/css/bootstrap-theme.min.css" />
+<link rel="stylesheet" type="text/css" href="css/screen.css" />
+</html>]]></CSP>
+</Export>

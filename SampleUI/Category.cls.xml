@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25">
+<Class name="SampleUI.Category">
+<Super>%Persistent,Form.Adaptor</Super>
+<TimeCreated>64386,71828.248833</TimeCreated>
+
+<Parameter name="FORMNAME">
+<Default>Category</Default>
+</Parameter>
+
+<Parameter name="OBJPERMISSIONS">
+<Type>%String</Type>
+<Default>CRUD</Default>
+</Parameter>
+
+<Parameter name="DISPLAYPROPERTY">
+<Type>%String</Type>
+<Default>Name</Default>
+</Parameter>
+
+<Property name="Name">
+<Type>%String</Type>
+<Parameter name="DISPLAYNAME" value="Name"/>
+</Property>
+
+<Index name="NameInd">
+<Properties>Name</Properties>
+<Unique>1</Unique>
+</Index>
+
+<Property name="Tasks">
+<Type>SampleUI.Task</Type>
+<Cardinality>many</Cardinality>
+<Inverse>Category</Inverse>
+<Relationship>1</Relationship>
+</Property>
+
+<Method name="Populate">
+<ClassMethod>1</ClassMethod>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+	set sc = $$$OK
+	set listOfCategories = $LISTBUILD("Home", "Work", "Education", "Hobby", "Leisure", "Other")
+	
+	for i=1:1:$LISTLENGTH(listOfCategories) {
+		set obj = ..%New()
+		set obj.Name = $LISTGET(listOfCategories, i)
+		set sc = obj.%Save() 
+	}
+	
+	quit sc
+]]></Implementation>
+</Method>
+
+<Storage name="Default">
+<Type>%Library.CacheStorage</Type>
+<DataLocation>^SampleUI.CategoryD</DataLocation>
+<DefaultData>CategoryDefaultData</DefaultData>
+<IdLocation>^SampleUI.CategoryD</IdLocation>
+<IndexLocation>^SampleUI.CategoryI</IndexLocation>
+<StreamLocation>^SampleUI.CategoryS</StreamLocation>
+<Data name="CategoryDefaultData">
+<Value name="1">
+<Value>%%CLASSNAME</Value>
+</Value>
+<Value name="2">
+<Value>Name</Value>
+</Value>
+</Data>
+</Storage>
+</Class>
+</Export>

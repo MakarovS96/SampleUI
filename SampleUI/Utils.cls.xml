@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25">
+<Class name="SampleUI.Utils">
+<TimeCreated>64386,77189.276428</TimeCreated>
+
+<Method name="repopulateAll">
+<ClassMethod>1</ClassMethod>
+<FormalSpec>num=100</FormalSpec>
+<ReturnType>%Integer</ReturnType>
+<Implementation><![CDATA[
+	set sc = $$$OK
+	
+	do ##class(SampleUI.Category).%KillExtent()
+	do ##class(SampleUI.Task).%KillExtent()
+	
+	set sc = ##class(SampleUI.Category).Populate()
+	
+	if $$$ISERR(sc) {
+		quit -1	
+	}
+	set col = ##class(SampleUI.Task).Populate(num)
+	
+	quit col
+]]></Implementation>
+</Method>
+
+<Method name="repopulateTasks">
+<ClassMethod>1</ClassMethod>
+<FormalSpec>num=100</FormalSpec>
+<ReturnType>%Integer</ReturnType>
+<Implementation><![CDATA[
+	
+	do ##class(SampleUI.Task).%KillExtent()
+	set col = ##class(SampleUI.Task).Populate(num)
+	
+	quit col
+]]></Implementation>
+</Method>
+</Class>
+</Export>

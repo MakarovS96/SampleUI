@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25">
+<Class name="SampleUI.Task">
+<Super>%Persistent,Form.Adaptor,%Populate</Super>
+<TimeCreated>64386,71727.552483</TimeCreated>
+
+<Parameter name="FORMNAME">
+<Default>Task</Default>
+</Parameter>
+
+<Parameter name="OBJPERMISSIONS">
+<Type>%String</Type>
+<Default>CRUD</Default>
+</Parameter>
+
+<Parameter name="DISPLAYPROPERTY">
+<Type>%String</Type>
+<Default>Text</Default>
+</Parameter>
+
+<Parameter name="FORMORDERBY">
+<Type>%String</Type>
+<Default>Created</Default>
+</Parameter>
+
+<Property name="Status">
+<Type>%Boolean</Type>
+<Parameter name="DISPLAYNAME" value="Status"/>
+<Parameter name="POPORDER" value="3"/>
+<Parameter name="POPSPEC" value=".setStatus()"/>
+</Property>
+
+<Property name="Text">
+<Type>%String</Type>
+<Parameter name="DISPLAYNAME" value="Text"/>
+<Parameter name="MAXLEN" value="100"/>
+<Parameter name="POPSPEC" value="StringMin(10, 100)"/>
+</Property>
+
+<Property name="Created">
+<Type>%TimeStamp</Type>
+<Parameter name="POPORDER" value="1"/>
+<Parameter name="POPSPEC" value="TimeStamp($zdt((+$zts-20)_&quot;,&quot;_$random(86400), 3, 1, 3), $zdt($zts, 3, 1, 3))"/>
+</Property>
+
+<Property name="Performed">
+<Type>%TimeStamp</Type>
+<SqlComputeCode>set {*} = $case({Status}, 0:"", 1:$case({*}, "":$ZDT($NOW(), 3, 1, 3), :{*}))
+</SqlComputeCode>
+<SqlComputed>1</SqlComputed>
+<SqlComputeOnChange>Status</SqlComputeOnChange>
+<Parameter name="POPORDER" value="2"/>
+<Parameter name="POPSPEC" value=".performedDate()"/>
+</Property>
+
+<Property name="Category">
+<Type>SampleUI.Category</Type>
+<Cardinality>one</Cardinality>
+<Inverse>Tasks</Inverse>
+<Relationship>1</Relationship>
+</Property>
+
+<Index name="CategoryIndex">
+<Properties>Category</Properties>
+</Index>
+
+<Method name="%OnNew">
+<Private>1</Private>
+<ReturnType>%Status</ReturnType>
+<ServerOnly>1</ServerOnly>
+<Implementation><![CDATA[
+	if i%Created = "" {
+		set i%Created = $ZDATETIME($NOW(), 3, 1, 3)
+	}
+	set i%Status = 0
+	
+	Quit $$$OK
+]]></Implementation>
+</Method>
+
+<Method name="performedDate">
+<ReturnType>%TimeStamp</ReturnType>
+<Implementation><![CDATA[
+	set CreatedDate = $ZDATETIMEH(i%Created, 3, 1, 3)
+	if ($RANDOM(2)) {
+		set date = (+CreatedDate+$RANDOM(10))_","_$RANDOM(86400)
+		if (date < $NOW()) {
+			quit $ZDATETIME(date, 3, 1, 3)
+		} else {
+			quit ""
+		}
+	} else {
+		quit ""
+	}
+]]></Implementation>
+</Method>
+
+<Method name="setStatus">
+<ReturnType>%Boolean</ReturnType>
+<Implementation><![CDATA[
+	if i%Performed '= "" quit 1
+	quit 0
+]]></Implementation>
+</Method>
+
+<Storage name="Default">
+<Type>%Library.CacheStorage</Type>
+<DataLocation>^SampleUI.TaskD</DataLocation>
+<DefaultData>TaskDefaultData</DefaultData>
+<IdLocation>^SampleUI.TaskD</IdLocation>
+<IndexLocation>^SampleUI.TaskI</IndexLocation>
+<StreamLocation>^SampleUI.TaskS</StreamLocation>
+<ExtentSize>100</ExtentSize>
+<Data name="TaskDefaultData">
+<Value name="1">
+<Value>%%CLASSNAME</Value>
+</Value>
+<Value name="2">
+<Value>Status</Value>
+</Value>
+<Value name="3">
+<Value>Text</Value>
+</Value>
+<Value name="4">
+<Value>Created</Value>
+</Value>
+<Value name="5">
+<Value>Performed</Value>
+</Value>
+<Value name="6">
+<Value>Deleted</Value>
+</Value>
+<Value name="7">
+<Value>Category</Value>
+</Value>
+<Value name="8">
+<Value>rand</Value>
+</Value>
+</Data>
+<Property name="%%CLASSNAME">
+<Selectivity>100.0000%</Selectivity>
+<AverageFieldSize>1</AverageFieldSize>
+</Property>
+<Property name="%%ID">
+<Selectivity>1</Selectivity>
+<AverageFieldSize>1.92</AverageFieldSize>
+</Property>
+<Property name="Category">
+<Selectivity>16.6667%</Selectivity>
+<AverageFieldSize>1</AverageFieldSize>
+</Property>
+<Property name="Created">
+<Selectivity>2.3256%</Selectivity>
+<AverageFieldSize>19</AverageFieldSize>
+</Property>
+<Property name="Deleted">
+<Selectivity>50.0000%</Selectivity>
+<AverageFieldSize>1</AverageFieldSize>
+</Property>
+<Property name="Performed">
+<Selectivity>1.0000%</Selectivity>
+<OutlierSelectivity>.65:</OutlierSelectivity>
+<AverageFieldSize>6.65</AverageFieldSize>
+</Property>
+<Property name="Status">
+<Selectivity>50.0000%</Selectivity>
+<AverageFieldSize>1</AverageFieldSize>
+</Property>
+<Property name="Text">
+<Selectivity>1.0000%</Selectivity>
+<AverageFieldSize>55.64</AverageFieldSize>
+</Property>
+<SQLMap name="CategoryIndex">
+<BlockCount>-4</BlockCount>
+</SQLMap>
+<SQLMap name="IDKEY">
+<BlockCount>-8</BlockCount>
+</SQLMap>
+</Storage>
+</Class>
+</Export>

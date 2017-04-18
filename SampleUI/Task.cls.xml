@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Export generator="Cache" version="25">
 <Class name="SampleUI.Task">
-<Super>%Persistent,Form.Adaptor,%Populate</Super>
+<Super>%Persistent,%Populate</Super>
 <TimeCreated>64386,71727.552483</TimeCreated>
 
 <UDLText name="T">
@@ -10,22 +10,20 @@
 *Задание: Сделать класс доступным для RESTForms
 *Для того чтобы класс стал доступным для RESTForms
 *	Добавьте в Extends класс Form.Adaptor
-*	Добавьте в класс 4 параметра DISPLAYPROPERTY, OBJPERMISSIONS, FORMNAME, FORMORDERBY
-*	Добавьте к свойствам которые должны отображаться в RESTFormsUI параметр DISPLAYNAME
+*	Добавьте и заполните в класс 4 параметра DISPLAYPROPERTY, OBJPERMISSIONS, FORMNAME, FORMORDERBY
+*	Добавьте к свойствам Text и Status параметр DISPLAYNAME и заполните его
 */
 ]]></Content>
 </UDLText>
 
 <Property name="Status">
 <Type>%Boolean</Type>
-<Parameter name="DISPLAYNAME" value="Status"/>
 <Parameter name="POPORDER" value="3"/>
 <Parameter name="POPSPEC" value=".setStatus()"/>
 </Property>
 
 <Property name="Text">
 <Type>%String</Type>
-<Parameter name="DISPLAYNAME" value="Text"/>
 <Parameter name="MAXLEN" value="100"/>
 <Parameter name="POPSPEC" value=".taskCreator()"/>
 </Property>

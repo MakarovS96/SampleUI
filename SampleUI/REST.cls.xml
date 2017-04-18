@@ -41,6 +41,7 @@
 		set id = $order(^CacheMsg("SAMPLEUI",lang,id))
 		quit:id=""
 		set word = ^CacheMsg("SAMPLEUI",lang,id)
+		set word = $translate(word, $c(10,9,9,9,9,9,9,9,9),"")
 		set obj = obj_"{""id"":"""_id_""", ""word"":"""_word_"""},"
 	}
 	
